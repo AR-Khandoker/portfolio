@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
@@ -7,73 +7,72 @@ import { AnimatedText } from '../shared/AnimatedSection';
 import { ScrambleText } from '../shared/ScrambleText';
 
 export function PreFooterCTA() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end end"]
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-
   return (
-    <section ref={containerRef} className="relative py-32 overflow-hidden border-t border-black/5 bg-white">
+    <section className="relative border-t border-black/5 bg-white min-h-[600px] flex items-center justify-center overflow-hidden py-32">
+      
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#FAFAFA] pointer-events-none" />
       
       {/* Abstract Background Shape */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[40vw] bg-black/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10"
-        style={{ position: 'relative' }}
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 80, damping: 20 }}
+        viewport={{ once: true, margin: '-100px' }}
+        className="flex flex-col items-center text-center max-w-4xl mx-auto px-6 z-10"
       >
-        <motion.div 
-          style={{ y, opacity }}
-          className="flex flex-col items-center text-center max-w-4xl mx-auto"
+        {/* Collaboration Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 bg-black/5 text-black text-sm font-medium mb-8">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
+          </span>
+          Available for new collaborations
+        </div>
+
+        {/* Heading */}
+        <AnimatedText
+          as="h2"
+          splitBy="words"
+          stagger={0.05}
+          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[1.1]"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black/10 bg-black/5 text-black text-sm font-medium mb-8">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
-            </span>
-            Available for new collaborations
-          </div>
+          Ready to build the extraordinary?
+        </AnimatedText>
 
-          <AnimatedText
-            as="h2"
-            splitBy="words"
-            stagger={0.05}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[1.1]"
+        {/* Description */}
+        <p className="text-xl text-black/60 max-w-2xl mb-12 leading-relaxed">
+          From early-stage startups to enterprise systems, I help ambitious teams build high-converting, award-winning digital products.
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <Button
+            size="lg"
+            className="h-16 px-10 rounded-full bg-black text-white text-lg group btn-water btn-water-purple"
+            asChild
           >
-            Ready to build the extraordinary?
-          </AnimatedText>
-          
-          <p className="text-xl text-black/60 max-w-2xl mb-12 leading-relaxed">
-            From early-stage startups to enterprise systems, I help ambitious teams build high-converting, award-winning digital products.
-          </p>
+            <Link to="/contact">
+              <ScrambleText>Start a Project</ScrambleText>
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
 
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <Button size="lg" className="h-16 px-10 rounded-full bg-black text-white text-lg group btn-water btn-water-purple" asChild>
-              <Link to="/contact">
-                <ScrambleText>Start a Project</ScrambleText>
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            
-            <a 
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=alrafikhandoker7@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 text-black/60 hover:text-black transition-colors px-6 py-4 rounded-full hover:bg-black/5"
-            >
-              <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
-                <Mail className="w-4 h-4" />
-              </div>
-              <span className="font-medium">alrafikhandoker7@gmail.com</span>
-            </a>
-          </div>
-        </motion.div>
-      </div>
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=alrafikhandoker7@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 text-black/60 hover:text-black transition-colors px-6 py-4 rounded-full hover:bg-black/5"
+          >
+            <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+              <Mail className="w-4 h-4" />
+            </div>
+            <span className="font-medium">alrafikhandoker7@gmail.com</span>
+          </a>
+        </div>
+      </motion.div>
     </section>
   );
 }
