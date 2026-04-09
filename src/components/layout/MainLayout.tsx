@@ -15,9 +15,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const showPreFooter = pathname !== '/contact';
 
   return (
-    <div className="min-h-screen bg-white text-black selection:bg-black/10 selection:text-black">
+    <div className="min-h-screen bg-white text-black selection:bg-black/10 selection:text-black relative">
       <Navbar />
-      <main className="pt-20">
+      <main className="pt-20 relative">
         {children}
       </main>
       {showPreFooter && <PreFooterCTA />}

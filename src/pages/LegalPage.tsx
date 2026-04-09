@@ -3,7 +3,7 @@ import React from 'react';
 export function LegalPage() {
   return (
     <div className="bg-white min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-6 max-w-3xl text-black/60">
+      <div className="container mx-auto px-6 max-w-3xl text-black/60 relative">
         <h1 className="text-4xl font-bold text-black mb-8">Privacy & Terms</h1>
         <div className="space-y-6">
           <p>Last updated: December 2025</p>

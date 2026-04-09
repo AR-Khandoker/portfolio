@@ -170,7 +170,7 @@ export function CaseStudyPage() {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen relative">
       
       {/* Floating Navigation Bar - appears on scroll */}
       <motion.div

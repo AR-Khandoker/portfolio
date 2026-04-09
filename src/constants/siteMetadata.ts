@@ -30,7 +30,7 @@ export const CONTACT_INFO = {
 
 export const BRAND_COLORS = {
   primary: '#000000',
-  secondary: '#eab308',
+  secondary: '#a855f7',
   background: '#ffffff',
   accent: '#FAFAFA',
 };

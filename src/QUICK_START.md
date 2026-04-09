@@ -1,247 +1,236 @@
-# Quick Start Guide
+# 🚀 GSAP ScrollTrigger - Quick Start Guide
 
-## Project Structure at a Glance
+## Installation Complete! ✅
 
-```
-components/
-├── sections/     → Page-specific sections (ParallaxHero, FeaturedWork, etc.)
-├── layout/       → Navigation, Footer, Layout wrappers
-├── shared/       → Reusable components (StickyCTA, BrandLoader, Timeline, etc.)
-├── ui/           → Base UI library (buttons, cards, forms, etc.)
-└── figma/        → Protected Figma components
-
-pages/            → All page components
-data/             → Centralized data (projects.ts is single source of truth)
-types/            → TypeScript interfaces
-constants/        → Navigation, metadata, config
-```
-
-## Common Tasks
-
-### Adding a New Project
-
-1. Open `/data/projects.ts`
-2. Add new project object to the array:
-```typescript
-{
-  id: 9,
-  title: "Project Name",
-  category: "Category",
-  image: "https://...",
-  metric: "Key metric",
-  size: "small" // or "large"
-}
-```
-3. If using Figma imports, add assets to `/imports/`
-4. Project automatically appears on Work page and Featured Work carousel
-
-### Adding a New Page
-
-1. Create file in `/pages/YourPage.tsx`
-2. Add route in `/App.tsx`:
-```typescript
-<Route path="/your-route" element={<YourPage />} />
-```
-3. Update `/constants/navigation.ts` to add navigation link
-4. Update Footer if needed
-
-### Creating a Reusable Component
-
-**For page-specific sections:**
-- Create in `/components/sections/YourSection.tsx`
-- Export in `/components/sections/index.ts`
-
-**For shared/reusable components:**
-- Create in `/components/shared/YourComponent.tsx`
-- Export in `/components/shared/index.ts`
-
-### Importing Components
-
-**Old way (verbose):**
-```tsx
-import { Button } from '../components/ui/button';
-import { StickyCTA } from '../components/shared/StickyCTA';
-import { ParallaxHero } from '../components/sections/ParallaxHero';
-```
-
-**New way (cleaner with barrel exports):**
-```tsx
-import { Button } from '../components/ui/button';
-import { StickyCTA, BrandLoader, Timeline } from '../components/shared';
-import { ParallaxHero, FeaturedWork } from '../components/sections';
-```
-
-### Working with Images
-
-**Figma raster images:**
-```tsx
-import heroImage from "figma:asset/abc123.png";
-```
-
-**Figma SVGs:**
-```tsx
-import svgPaths from "./imports/svg-abc123";
-```
-
-**New images (use fallback component):**
-```tsx
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-
-<ImageWithFallback src="..." alt="..." />
-```
-
-### Styling Guidelines
-
-**Colors:**
-- Primary: `text-black`, `bg-black`
-- Secondary (yellow): `text-secondary`, `bg-secondary`
-- Background: `bg-white`
-- Accent: `bg-[#FAFAFA]`
-
-**Do NOT use these Tailwind classes** (unless specifically requested):
-- Font sizes: `text-xl`, `text-2xl`, etc.
-- Font weights: `font-bold`, `font-medium`, etc.
-- Line heights: `leading-tight`, etc.
-
-Typography is pre-configured in `/styles/globals.css`
-
-**Standard spacing:**
-- Section padding: `py-32` (desktop), `py-20` (mobile)
-- Container: `container mx-auto px-6`
-- Cards: `p-6` or `p-8`
-
-### Animation Patterns
-
-**Page entrance:**
-```tsx
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
->
-```
-
-**Scroll-triggered:**
-```tsx
-import { ScrollReveal } from '../components/shared';
-
-<ScrollReveal>
-  <YourContent />
-</ScrollReveal>
-```
-
-**Stagger children:**
-```tsx
-{items.map((item, i) => (
-  <motion.div
-    key={i}
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ delay: i * 0.1 }}
-    viewport={{ once: true }}
-  >
-```
-
-## Protected Files
-
-**DO NOT EDIT:**
-- `/components/sections/ParallaxHero.tsx` - Manual edits
-- `/pages/HomePage.tsx` - Manual edits
-- `/components/figma/ImageWithFallback.tsx` - System file
-- `/supabase/functions/server/kv_store.tsx` - System file
-- `/utils/supabase/info.tsx` - System file
-
-## TypeScript Types
-
-All interfaces are in `/types/index.ts`:
-- `Project` - Project data structure
-- `NavigationLink` - Nav items
-- `Service` - Service cards
-- `TimelineEvent` - Timeline items
-- `ContactFormData` - Contact form
-
-**Usage:**
-```tsx
-import type { Project } from '../types';
-
-const myProject: Project = { ... };
-```
-
-## Backend (Supabase)
-
-**Making API calls:**
-```tsx
-import { projectId, publicAnonKey } from './utils/supabase/info';
-
-const response = await fetch(
-  `https://${projectId}.supabase.co/functions/v1/make-server-4ba1cc9d/your-route`,
-  {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${publicAnonKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-);
-```
-
-**All routes MUST:**
-- Be prefixed with `/make-server-4ba1cc9d/`
-- Include auth header with `publicAnonKey`
-- Return JSON responses
-
-## Debugging Tips
-
-1. **Component not showing?**
-   - Check import paths
-   - Verify component is exported
-   - Check for TypeScript errors in console
-
-2. **Styles not applying?**
-   - Ensure Tailwind classes are correct
-   - Check if custom styles in globals.css conflict
-   - Inspect element to see computed styles
-
-3. **Animation not working?**
-   - Import from `motion/react` not `framer-motion`
-   - Check `initial` and `animate` props are present
-   - Verify Motion component wraps your content
-
-4. **Images not loading?**
-   - For Figma assets, never prefix with `./` or `../`
-   - Check asset hash is correct
-   - Use browser dev tools Network tab
-
-## File Naming Conventions
-
-- **Components**: PascalCase `MyComponent.tsx`
-- **Types**: lowercase `index.ts`
-- **Constants**: camelCase `siteMetadata.ts`
-- **Data files**: camelCase `projects.ts`
-
-## Git Workflow (if applicable)
-
-1. Always pull latest before starting work
-2. Create feature branches: `feature/your-feature-name`
-3. Commit messages: Clear and descriptive
-4. Test before pushing
-5. Create PR for review
-
-## Resources
-
-- **Full Architecture**: See `/ARCHITECTURE.md`
-- **Tailwind Docs**: https://tailwindcss.com/docs
-- **Motion Docs**: https://motion.dev/docs/react-quick-start
-- **React Router**: https://reactrouter.com/
-
-## Getting Help
-
-1. Check `/ARCHITECTURE.md` for detailed docs
-2. Review existing similar components
-3. Check console for errors
-4. Use TypeScript intellisense for hints
+Your portfolio now has premium scroll-driven animations like award-winning websites on https://gsap.com/scroll/
 
 ---
 
-**Happy coding! 🚀**
+## 🎯 Start Using in 3 Steps
+
+### Step 1: Import the Hook
+```tsx
+import { useFadeSlideUp } from '../hooks/useGSAPAnimations';
+```
+
+### Step 2: Create a Ref
+```tsx
+const myRef = useFadeSlideUp({ duration: 1.2, y: 80 });
+```
+
+### Step 3: Attach to Element
+```tsx
+<div ref={myRef}>This will animate on scroll!</div>
+```
+
+---
+
+## 📦 Most Common Animations
+
+### 1️⃣ Fade In Section
+```tsx
+import { useFadeSlideUp } from '../hooks/useGSAPAnimations';
+
+const heroRef = useFadeSlideUp({ duration: 1.5, y: 100 });
+
+<section ref={heroRef}>
+  <h1>Your Content</h1>
+</section>
+```
+
+### 2️⃣ Stagger Cards/Items
+```tsx
+import { useStaggerReveal } from '../hooks/useGSAPAnimations';
+
+const cardsRef = useStaggerReveal({ stagger: 0.15, duration: 0.8 });
+
+<div ref={cardsRef}>
+  <div className="card">Card 1</div>
+  <div className="card">Card 2</div>
+  <div className="card">Card 3</div>
+</div>
+```
+
+### 3️⃣ Text Reveal (Word by Word)
+```tsx
+import { useTextReveal } from '../hooks/useGSAPAnimations';
+
+const headlineRef = useTextReveal({ splitBy: 'words', stagger: 0.05 });
+
+<h1 ref={headlineRef}>Your Amazing Headline</h1>
+```
+
+### 4️⃣ Animated Counter
+```tsx
+import { useCounter } from '../hooks/useGSAPAnimations';
+
+const counterRef = useCounter({ start: 0, end: 150, suffix: '+' });
+
+<div ref={counterRef}>0+</div>
+```
+
+### 5️⃣ Parallax Background
+```tsx
+import { useParallax } from '../hooks/useGSAPAnimations';
+
+const bgRef = useParallax({ speed: 100, direction: 'down' });
+
+<div className="relative">
+  <div ref={bgRef} className="absolute inset-0 bg-gradient" />
+  <div className="relative z-10">Content on top</div>
+</div>
+```
+
+### 6️⃣ Image Reveal with Scale
+```tsx
+import { useImageReveal } from '../hooks/useGSAPAnimations';
+
+const imgRef = useImageReveal({ scale: 1.2, duration: 1.4 });
+
+<div ref={imgRef} className="overflow-hidden rounded-2xl">
+  <img src="your-image.jpg" alt="Description" />
+</div>
+```
+
+---
+
+## 🎨 Complete Component Example
+
+```tsx
+import React from 'react';
+import { 
+  useFadeSlideUp, 
+  useStaggerReveal, 
+  useTextReveal,
+  useCounter 
+} from '../hooks/useGSAPAnimations';
+
+export function MySection() {
+  // Create refs with animations
+  const heroRef = useFadeSlideUp({ duration: 1.5, y: 100 });
+  const headlineRef = useTextReveal({ splitBy: 'words', stagger: 0.05 });
+  const cardsRef = useStaggerReveal({ stagger: 0.15 });
+  const counterRef = useCounter({ start: 0, end: 98, suffix: '+' });
+
+  return (
+    <section ref={heroRef} className="py-32">
+      <h1 ref={headlineRef} className="text-6xl font-bold mb-12">
+        Premium Animation System
+      </h1>
+      
+      <div ref={counterRef} className="text-4xl font-bold text-purple-500 mb-16">
+        0+
+      </div>
+      
+      <div ref={cardsRef} className="grid grid-cols-3 gap-8">
+        <div className="card">Card 1</div>
+        <div className="card">Card 2</div>
+        <div className="card">Card 3</div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+## 🎬 All Available Hooks
+
+| Hook | Description | Common Use |
+|------|-------------|------------|
+| `useFadeSlideUp` | Fade in + slide up | Sections, cards |
+| `useStaggerReveal` | Sequential reveals | Grids, lists |
+| `useTextReveal` | Word/char reveals | Headlines |
+| `useImageReveal` | Image + scale | Hero images |
+| `useParallax` | Depth movement | Backgrounds |
+| `useScaleOnScroll` | Zoom in/out | Cards, images |
+| `useRotateOnScroll` | Rotation effect | Logos, icons |
+| `useClipPathReveal` | Wipe effect | Sections |
+| `useCounter` | Number counting | Stats |
+| `usePinElement` | Sticky scroll | Headers |
+
+---
+
+## ⚙️ Customization Options
+
+### Duration
+```tsx
+useFadeSlideUp({ duration: 2 }) // Slow
+useFadeSlideUp({ duration: 0.8 }) // Fast
+```
+
+### Distance
+```tsx
+useFadeSlideUp({ y: 150 }) // Large movement
+useFadeSlideUp({ y: 30 }) // Subtle movement
+```
+
+### Delay
+```tsx
+useFadeSlideUp({ delay: 0.5 }) // Wait 0.5s before starting
+```
+
+### Stagger Timing
+```tsx
+useStaggerReveal({ stagger: 0.3 }) // Slow cascade
+useStaggerReveal({ stagger: 0.05 }) // Quick cascade
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Animation not working?
+1. ✅ Check ref is attached: `<div ref={myRef}>`
+2. ✅ Element must be in viewport when scrolling
+3. ✅ Check browser console for errors
+
+### Enable debug markers:
+In `/hooks/useLenis.ts`, line 46:
+```tsx
+ScrollTrigger.defaults({
+  markers: true, // Shows visual debug lines
+});
+```
+
+### Animation triggers too early/late?
+Adjust the start position:
+```tsx
+// Custom start position
+useEffect(() => {
+  fadeSlideUp('.element', { start: 'top 90%' }); // Trigger earlier
+}, []);
+```
+
+---
+
+## 📚 Learn More
+
+- **Full Documentation**: `/GSAP_ANIMATIONS_GUIDE.md`
+- **Code Examples**: `/components/examples/EnhancedAboutSection.tsx`
+- **Quick Reference**: `/docs/gsap-quick-reference.tsx`
+- **Demo Component**: `/components/demo/ScrollAnimationDemo.tsx`
+- **GSAP Official**: https://gsap.com/docs/v3/Plugins/ScrollTrigger/
+
+---
+
+## ✨ Already Working
+
+Your `ClientMarquee` component on the HomePage is already using GSAP ScrollTrigger with:
+- Fade and slide up on scroll
+- Staggered client name reveals
+- Smooth integration with continuous marquee animation
+
+Check `/components/sections/ClientMarquee.tsx` to see it in action!
+
+---
+
+## 🎯 Next Steps
+
+1. ✅ **System is ready** - Start adding to your pages
+2. 📄 Open `/INSTALLATION_SUMMARY.md` for overview
+3. 📖 Check `/GSAP_ANIMATIONS_GUIDE.md` for all features
+4. 🎨 Try examples from `/docs/gsap-quick-reference.tsx`
+5. 🚀 Apply to WorkPage, AboutPage, ServicesPage
+
+**Your portfolio now has world-class scroll animations! 🎉**

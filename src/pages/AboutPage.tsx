@@ -20,6 +20,8 @@ import { StickyCTA } from '../components/shared/StickyCTA';
 import { Link } from 'react-router-dom';
 import { Timeline } from '../components/shared/Timeline';
 import { ScrollReveal } from '../components/shared/ScrollReveal';
+import { AnimatedSection, AnimatedText } from '../components/shared/AnimatedSection';
+import { ScrambleText } from '../components/shared/ScrambleText';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,19 +30,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '../components/ui/breadcrumb';
-import designerPortrait from 'figma:asset/459dc648b1cd15ce7d834e6ca0f4ebb46995942f.png';
+import designerPortrait from 'figma:asset/9930ac78cb1a6ee59dc44d5b5c04f8c4461db068.png';
 
 export function AboutPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <div className="pt-32 pb-20 container mx-auto px-6">
+      <div className="pt-32 pb-20 container mx-auto px-6 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="lg:sticky lg:top-32"
-          >
+          <AnimatedSection animation="scale" duration={1.2} className="lg:sticky lg:top-32">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-700">
               <img 
                 src={designerPortrait} 
@@ -51,7 +49,7 @@ export function AboutPage() {
             <div className="flex gap-4 mt-8">
               <Button variant="outline" className="w-full border-black/20 text-black hover:bg-black hover:text-white transition-colors" asChild>
                 <a href="https://drive.google.com/file/d/1fLf8BONTW3WZq0-L72_-3fTCLSid2ve9/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 w-4 h-4" /> Download CV
+                  <Download className="mr-2 w-4 h-4" /> <ScrambleText>Download CV</ScrambleText>
                 </a>
               </Button>
             </div>
@@ -87,13 +85,9 @@ export function AboutPage() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </AnimatedSection>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
+          <AnimatedSection animation="fade" delay={0.3}>
             <Breadcrumb className="mb-8">
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -107,10 +101,17 @@ export function AboutPage() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-black">Designing for impact.</h1>
+            <AnimatedText
+              as="h1"
+              splitBy="words"
+              stagger={0.05}
+              className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 text-black"
+            >
+              Designing for impact.
+            </AnimatedText>
             <div className="space-y-6 text-xl text-black/60 leading-relaxed font-light">
               <p>
-                I’m a Product Designer specializing in UI/UX and Motion Graphics, with experience spanning digital product design, system thinking, and visual storytelling. My work blends functional clarity with clean, modern aesthetics—crafting intuitive interfaces that feel effortless to use.
+                I'm a Product Designer specializing in UI/UX and Motion Graphics, with experience spanning digital product design, system thinking, and visual storytelling. My work blends functional clarity with clean, modern aesthetics—crafting intuitive interfaces that feel effortless to use.
               </p>
               <p>
                 My journey started in graphic design, evolved through brand strategy, video production, and web development, and matured into product design and UX. This multi-disciplinary background allows me to approach problems holistically, balancing usability, visual craft, and business impact.
@@ -119,7 +120,7 @@ export function AboutPage() {
                 I believe great design is invisible—quietly powering user success. My approach is minimalist yet strategic, removing unnecessary noise to highlight what truly matters: clarity, usability, and measurable results.
               </p>
               <p>
-                Today, I work as a UI/UX Designer at Powerman Local, shaping their end-to-end product experience across HRM, CRM, and internal tools. Beyond that, I’ve collaborated with agencies, tech startups, universities, and marketing teams to deliver digital experiences that improve efficiency, engagement, and brand perception.
+                Today, I work as a UI/UX Designer at Powerman Local, shaping their end-to-end product experience across HRM, CRM, and internal tools. Beyond that, I've collaborated with agencies, tech startups, universities, and marketing teams to deliver digital experiences that improve efficiency, engagement, and brand perception.
               </p>
             </div>
 
@@ -219,7 +220,7 @@ export function AboutPage() {
             </div>
 
 
-          </motion.div>
+          </AnimatedSection>
         </div>
       </div>
       <StickyCTA />

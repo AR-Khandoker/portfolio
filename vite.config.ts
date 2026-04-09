@@ -1,10 +1,11 @@
 
   import { defineConfig } from 'vite';
-  import react from '@vitejs/plugin-react-swc';
+  import react from '@vitejs/plugin-react';
+  import tailwindcss from '@tailwindcss/vite';
   import path from 'path';
 
   export default defineConfig({
-    plugins: [react()],
+    plugins: [react(), tailwindcss()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
@@ -29,6 +30,7 @@
         'figma:asset/b7e0f82212c3895e60b8221fb2b27f7f81661d1d.png': path.resolve(__dirname, './src/assets/b7e0f82212c3895e60b8221fb2b27f7f81661d1d.png'),
         'figma:asset/a575d662bbb4e989790347fcc2914340a860101d.png': path.resolve(__dirname, './src/assets/a575d662bbb4e989790347fcc2914340a860101d.png'),
         'figma:asset/a14c4e7c7589829ab188cd9dc597fac6df1a1b5b.png': path.resolve(__dirname, './src/assets/a14c4e7c7589829ab188cd9dc597fac6df1a1b5b.png'),
+        'figma:asset/9930ac78cb1a6ee59dc44d5b5c04f8c4461db068.png': path.resolve(__dirname, './src/assets/9930ac78cb1a6ee59dc44d5b5c04f8c4461db068.png'),
         'figma:asset/822279b7e86ceec6c1d51a3db16ee9114e086286.png': path.resolve(__dirname, './src/assets/822279b7e86ceec6c1d51a3db16ee9114e086286.png'),
         'figma:asset/808b92488f5a39dd32ed59c4520e781ae28a5da5.png': path.resolve(__dirname, './src/assets/808b92488f5a39dd32ed59c4520e781ae28a5da5.png'),
         'figma:asset/71d458ab48c2364307be66068100c5530bf7baa0.png': path.resolve(__dirname, './src/assets/71d458ab48c2364307be66068100c5530bf7baa0.png'),
@@ -50,6 +52,7 @@
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
         'cmdk@1.1.1': 'cmdk',
         'class-variance-authority@0.7.1': 'class-variance-authority',
+        '@supabase/supabase-js@2.39.3': '@supabase/supabase-js',
         '@radix-ui/react-tooltip@1.1.8': '@radix-ui/react-tooltip',
         '@radix-ui/react-toggle@1.1.2': '@radix-ui/react-toggle',
         '@radix-ui/react-toggle-group@1.1.2': '@radix-ui/react-toggle-group',

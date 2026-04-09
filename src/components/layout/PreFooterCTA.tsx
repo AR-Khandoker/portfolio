@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowRight, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
+import { AnimatedText } from '../shared/AnimatedSection';
+import { ScrambleText } from '../shared/ScrambleText';
 
 export function PreFooterCTA() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,7 +24,9 @@ export function PreFooterCTA() {
       {/* Abstract Background Shape */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[40vw] bg-black/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10"
+        style={{ position: 'relative' }}
+      >
         <motion.div 
           style={{ y, opacity }}
           className="flex flex-col items-center text-center max-w-4xl mx-auto"
@@ -35,19 +39,23 @@ export function PreFooterCTA() {
             Available for new collaborations
           </div>
 
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[1.1]">
-            Ready to build <br />
-            <span className="text-black/40">the extraordinary?</span>
-          </h2>
+          <AnimatedText
+            as="h2"
+            splitBy="words"
+            stagger={0.05}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-8 leading-[1.1]"
+          >
+            Ready to build the extraordinary?
+          </AnimatedText>
           
           <p className="text-xl text-black/60 max-w-2xl mb-12 leading-relaxed">
             From early-stage startups to enterprise systems, I help ambitious teams build high-converting, award-winning digital products.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-6">
-            <Button size="lg" className="h-16 px-10 rounded-full bg-black text-white hover:bg-black/80 hover:scale-105 transition-all duration-300 text-lg group" asChild>
+            <Button size="lg" className="h-16 px-10 rounded-full bg-black text-white text-lg group btn-water btn-water-purple" asChild>
               <Link to="/contact">
-                Start a Project
+                <ScrambleText>Start a Project</ScrambleText>
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>

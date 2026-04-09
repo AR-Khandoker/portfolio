@@ -5,8 +5,8 @@ export function BrandLoader({ onComplete }: { onComplete: () => void }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    // Simulate loading progress
-    const duration = 2000;
+    // Optimized loading progress - reduced from 2000ms to 1500ms
+    const duration = 1500;
     const steps = 50;
     const intervalTime = duration / steps;
 
@@ -20,10 +20,10 @@ export function BrandLoader({ onComplete }: { onComplete: () => void }) {
       });
     }, intervalTime);
 
-    // Trigger completion
+    // Trigger completion - reduced delay from 500ms to 300ms
     const timeout = setTimeout(() => {
       onComplete();
-    }, duration + 500);
+    }, duration + 300);
 
     return () => {
       clearInterval(interval);

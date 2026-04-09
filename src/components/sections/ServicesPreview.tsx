@@ -3,6 +3,8 @@ import { motion } from 'motion/react';
 import { Layout, Zap, PenTool, Search, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
+import { AnimatedSection, AnimatedText } from '../shared/AnimatedSection';
+import { ScrambleText } from '../shared/ScrambleText';
 
 const services = [
   {
@@ -29,66 +31,64 @@ const services = [
 
 export function ServicesPreview() {
   return (
-    <section className="py-32 bg-white">
-      <div className="container mx-auto px-6">
+    <section className="relative py-32 bg-white">
+      <div className="container mx-auto px-6"
+        style={{ position: 'relative' }}
+      >
         <div className="max-w-3xl mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <AnimatedSection animation="fade">
             <p className="text-sm uppercase tracking-widest text-secondary font-medium mb-4">
               What I Do
             </p>
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-6">
+            <AnimatedText
+              as="h2"
+              splitBy="words"
+              stagger={0.05}
+              className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-6"
+            >
               Services & Expertise
-            </h2>
+            </AnimatedText>
             <p className="text-xl text-black/60 leading-relaxed">
               From strategy to execution, I help bring digital products to life with clarity and precision.
             </p>
-          </motion.div>
+          </AnimatedSection>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group p-6 rounded-2xl bg-[#FAFAFA] border border-black/5 hover:border-black/20 hover:bg-white transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center mb-6 text-black group-hover:bg-secondary group-hover:text-black group-hover:border-secondary transition-all shadow-sm">
-                {service.icon}
+        <AnimatedSection animation="stagger" stagger={0.15}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {services.map((service, i) => (
+              <div
+                key={service.title}
+                className="group p-6 rounded-2xl bg-[#FAFAFA] border border-black/5 hover:border-black/20 hover:bg-white transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-full bg-white border border-black/10 flex items-center justify-center mb-6 text-black group-hover:bg-secondary group-hover:text-black group-hover:border-secondary transition-all shadow-sm">
+                  {service.icon}
+                </div>
+                <h3 className="text-lg font-bold mb-3 text-black">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-black/60 leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-lg font-bold mb-3 text-black">
-                {service.title}
-              </h3>
-              <p className="text-sm text-black/60 leading-relaxed">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </AnimatedSection>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <Button
-            asChild
-            variant="outline"
-            className="rounded-full px-6 h-12 border-black/10 hover:bg-black hover:text-white transition-all"
-          >
-            <Link to="/services">
-              View All Services
-              <ArrowUpRight className="ml-2 w-4 h-4" />
-            </Link>
-          </Button>
-        </motion.div>
+        <AnimatedSection animation="fade" delay={0.5}>
+          <div className="text-center">
+            <Button
+              asChild
+              variant="outline"
+              className="rounded-full px-6 h-12 border-black/10 btn-water btn-water-black"
+            >
+              <Link to="/services">
+                <ScrambleText>View All Services</ScrambleText>
+                <ArrowUpRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

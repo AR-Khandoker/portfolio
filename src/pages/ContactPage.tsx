@@ -9,6 +9,7 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { cn } from '../components/ui/utils';
 import { supabase } from '../lib/supabase';
+import { AnimatedSection, AnimatedText } from '../components/shared/AnimatedSection';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -127,7 +128,7 @@ export function ContactPage() {
 
   return (
     <div className="bg-white min-h-screen pt-32 pb-20">
-      <div className="container mx-auto px-6 max-w-4xl">
+      <div className="container mx-auto px-6 max-w-4xl relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -350,28 +351,30 @@ export function ContactPage() {
         </div>
 
         {/* Contact Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          <a 
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=alrafikhandoker7@gmail.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm hover:border-black transition-colors cursor-pointer"
-          >
-            <Mail className="w-8 h-8 text-black mb-4" />
-            <h4 className="font-bold mb-2 text-black">Email Me</h4>
-            <p className="text-black/60">alrafikhandoker7@gmail.com</p>
-          </a>
-          <div className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm">
-            <Calendar className="w-8 h-8 text-black mb-4" />
-            <h4 className="font-bold mb-2 text-black">Book a Call</h4>
-            <p className="text-black/60">Calendly Available</p>
+        <AnimatedSection animation="stagger" stagger={0.1}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=alrafikhandoker7@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm hover:border-black transition-colors cursor-pointer"
+            >
+              <Mail className="w-8 h-8 text-black mb-4" />
+              <h4 className="font-bold mb-2 text-black">Email Me</h4>
+              <p className="text-black/60">alrafikhandoker7@gmail.com</p>
+            </a>
+            <div className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm">
+              <Calendar className="w-8 h-8 text-black mb-4" />
+              <h4 className="font-bold mb-2 text-black">Book a Call</h4>
+              <p className="text-black/60">Calendly Available</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm">
+              <Clock className="w-8 h-8 text-black mb-4" />
+              <h4 className="font-bold mb-2 text-black">Working Hours</h4>
+              <p className="text-black/60">Mon-Fri, 9am - 6pm EST</p>
+            </div>
           </div>
-          <div className="flex flex-col items-center text-center p-6 bg-white border border-black/10 rounded-2xl shadow-sm">
-            <Clock className="w-8 h-8 text-black mb-4" />
-            <h4 className="font-bold mb-2 text-black">Working Hours</h4>
-            <p className="text-black/60">Mon-Fri, 9am - 6pm EST</p>
-          </div>
-        </div>
+        </AnimatedSection>
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { ScrambleTitle } from "../animations/ScrambleTitle";
+import { ScrambleText } from "../shared/ScrambleText";
 
 export function ParallaxHero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,13 +72,7 @@ export function ParallaxHero() {
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
               AVAILABLE FOR NEW PROJECTS
             </Link>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] mb-4 text-black">
-              Designing for
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-black to-secondary">
-                Humans.
-              </span>
-            </h1>
+            <ScrambleTitle className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[1.1] mb-4 text-black" />
             <p className="text-lg md:text-xl text-black/60 max-w-lg leading-relaxed ">
               Product-focused UI/UX & Motion Designer creating
               intuitive, scalable digital experiences that
@@ -96,19 +92,19 @@ export function ParallaxHero() {
           >
             <Button
               size="lg"
-              className="bg-black text-white hover:bg-secondary hover:text-black rounded-full h-14 px-8 text-base transition-colors duration-300"
+              className="bg-black text-white rounded-full h-14 px-8 text-base btn-water btn-water-purple"
               asChild
             >
-              <Link to="/contact">Book a Consultation</Link>
+              <Link to="/contact"><ScrambleText>Book a Consultation</ScrambleText></Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-black/20 text-black hover:bg-black/5 rounded-full h-14 px-8 text-base bg-transparent"
+              className="border-black/20 text-black rounded-full h-14 px-8 text-base bg-transparent btn-water btn-water-black"
               asChild
             >
               <Link to="/work">
-                View Case Studies{" "}
+                <ScrambleText>View Case Studies</ScrambleText>{" "}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
@@ -153,6 +149,8 @@ export function ParallaxHero() {
               src="https://cdn.dribbble.com/userupload/45675793/file/abc148459b2fdb99cd1fe963bcd94391.png?resize=1024x768&vertical=center"
               alt="Fintech Dashboard UI"
               className="w-full !h-[50rem] object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
