@@ -48,7 +48,7 @@ export function AboutPage() {
             </div>
             <div className="flex gap-4 mt-8">
               <Button variant="outline" className="w-full border-black/20 text-black hover:bg-black hover:text-white transition-colors" asChild>
-                <a href="https://drive.google.com/file/d/1fLf8BONTW3WZq0-L72_-3fTCLSid2ve9/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <a href="https://drive.google.com/file/d/1P2bHNp3I-bOsBvJUV8QVoQ_LTBOc1CO9/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
                   <Download className="mr-2 w-4 h-4" /> <ScrambleText>Download CV</ScrambleText>
                 </a>
               </Button>

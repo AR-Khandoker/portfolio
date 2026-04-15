@@ -71,7 +71,7 @@ export function Navbar() {
           ))}
           
           <Button asChild className="bg-black text-white rounded-full px-6 btn-water btn-water-purple">
-            <a href="https://drive.google.com/file/d/1fLf8BONTW3WZq0-L72_-3fTCLSid2ve9/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+            <a href="https://drive.google.com/file/d/1P2bHNp3I-bOsBvJUV8QVoQ_LTBOc1CO9/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
               <ScrambleText>Download CV</ScrambleText>
             </a>
           </Button>
