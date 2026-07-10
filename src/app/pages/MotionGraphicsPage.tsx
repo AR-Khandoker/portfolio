@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+function toYouTubeEmbed(url: string): string {
+  if (!url) return url;
+  const t = url.trim();
+  if (t.includes('youtube.com/embed/')) return t;
+  const short = t.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (short) return `https://www.youtube.com/embed/${short[1]}`;
+  const shorts = t.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+  if (shorts) return `https://www.youtube.com/embed/${shorts[1]}`;
+  const watch = t.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if (watch) return `https://www.youtube.com/embed/${watch[1]}`;
+  return t;
+}
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, X, ArrowUpRight, Film } from 'lucide-react';
 import { AnimatedSection, AnimatedText } from '../components/shared/AnimatedSection';
@@ -177,7 +190,7 @@ function VideoModal({ video, onClose }: { video: MotionVideo; onClose: () => voi
         <div className="aspect-video bg-black">
           {video.video_url ? (
             <iframe
-              src={video.video_url + (video.video_url.includes('?') ? '&' : '?') + 'autoplay=1&rel=0'}
+              src={toYouTubeEmbed(video.video_url) + '?autoplay=1&rel=0'}
               title={video.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
